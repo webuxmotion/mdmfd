@@ -1,0 +1,52 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+.c-form {
+    display: flex;
+    justify-content: center;
+    
+    &__card {
+        min-width: 500px;
+    }
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+        margin: 0;
+    }
+}
+
+.a-pt-20 {
+    padding-top: 20px;
+}
+
+.a-pt-50 {
+    padding-top: 50px;
+}
+
+.a-pb-50 {
+    padding-bottom: 50px;
+}
+
+.g-breadcrumbs {
+    background-color: transparent;
+    box-shadow: none;
+
+    &__item {
+
+        &_current {
+            font-weight: bold;
+        }
+    }
+
+    .breadcrumb {
+        color: black;
+
+        &::before {
+            color: inherit;
+        }
+    }
+}

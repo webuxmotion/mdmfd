@@ -1,0 +1,75 @@
+<ul class="sidenav">
+    <li
+        *ngFor="let desk of desks"
+        routerLinkActive="active"
+    >
+        <a
+            [routerLink]="['/desks', desk._id]"
+        >
+            {{desk.name}}
+        </a>
+    </li>
+
+    <li>
+        <a
+            class="waves-effect waves-orange green"
+            (click)="openModal()"
+        >
+            <i class="material-icons">add</i>
+            Add Desk
+        </a>
+    </li>
+
+    <li class="bold">
+        <a
+            class="waves-effect waves-orange"
+            (click)="logout()"
+        >
+            <i class="material-icons">logout</i>
+            Logout
+        </a>
+    </li>
+</ul>
+
+<div class="site-layout__content">
+    <router-outlet></router-outlet>
+</div>
+
+<div 
+    class="modal"
+    #modal
+>
+    <div class="modal-content">
+        <h4>Add desk</h4>
+        <form
+            [formGroup]="form"
+            (ngSubmit)="onSubmit()"
+        >
+            <div class="input-field">
+                <input 
+                    formControlName="name"
+                    placeholder="Example" 
+                    type="text" 
+                    class="validate"
+                    [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+                >
+                <label class="active">Desk Name</label>
+                <span
+                    class="helper-text red-text"
+                    *ngIf="form.get('name').invalid && form.get('name').touched"
+                >
+                    <span *ngIf="form.get('name').errors['required']">
+                        Category name can't be empty
+                    </span>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button
+            class="waves-effect waves-green btn-flat"
+            type="submit"
+            (click)="submitForm()"
+        >Save</button>
+    </div>
+</div>

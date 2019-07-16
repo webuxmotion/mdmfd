@@ -1,0 +1,111 @@
+<nav class="g-breadcrumbs">
+    <div class="nav-wrapperd">
+        <div class="col s12">
+            <a 
+                routerLink="/categories"
+                class="breadcrumb g-breadcrumbs__item"
+            >Categories</a>
+            <a 
+                class="breadcrumb g-breadcrumbs__item g-breadcrumbs__item_current"
+            >{{isNew ? 'Add' : 'Edit'}} category</a>
+        </div>
+    </div>
+</nav>
+
+<div class="row a-pt-20">
+    <div class="col s6">
+        <div *ngIf="!categoryLoader; else loader">
+            <form 
+                [formGroup]="form"
+                (ngSubmit)="onSubmit()"
+            >
+                <div class="input-field">
+                    <input 
+                        formControlName="name"
+                        placeholder="Placeholder" 
+                        type="text" 
+                        class="validate"
+                        [ngClass]="{'invalid': form.get('name').invalid && form.get('name').touched}"
+                    >
+                    <label for="first_name" class="active">First Name</label>
+                    <span
+                        class="helper-text red-text"
+                        *ngIf="form.get('name').invalid && form.get('name').touched"
+                    >
+                        <span *ngIf="form.get('name').errors['required']">
+                            Category name can't be empty
+                        </span>
+                    </span>
+                </div>
+        
+                <div class="row">
+                    <div class="col s6">
+                        <button 
+                            class="btn"
+                            (click)="triggerClick()"
+                            type="button"
+                            [disabled]="form.disabled"
+                        >Upload</button>
+                        <input
+                            type="file"
+                            class="displayNone"
+                            (change)="onFileUpload($event)"
+                            #input
+                        >
+                    </div>
+                    <div class="col s6">
+                        <div class="card">
+                            <div class="card-image">
+                                <img 
+                                    [src]="imagePreview"
+                                    *ngIf="imagePreview"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <button 
+                        class="btn waves-effect waves-light btn-large" 
+                        type="submit"
+                        [disabled]="form.invalid || form.disabled"
+                    >Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+            
+            <div *ngIf="!isNew">
+                <div class="a-pt-20">
+                    <div class="divider"></div>
+                </div>
+        
+                <h6 class="header a-pt-20">Danger zone</h6>
+        
+                <div class="a-pt-20">
+                    <a 
+                        class="waves-effect waves-light btn red"
+                        (click)="deleteCategory()"
+                    >
+                        <i class="material-icons left">delete</i>
+                        delete category
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <ng-template #loader>
+            <app-loader></app-loader>
+        </ng-template>
+        
+    </div>
+    
+    <div class="col s6">
+        <app-positions-form
+            *ngIf="category?._id"
+            [categoryId]="category._id"
+        ></app-positions-form>
+    </div>
+</div>

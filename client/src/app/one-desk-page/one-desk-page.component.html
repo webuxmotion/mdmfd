@@ -1,0 +1,42 @@
+<div 
+    class="a-pt-50"
+    *ngIf="!loading; else loader"
+>
+    <div class="center a-pb-50">
+        <a 
+            class="waves-effect waves-light btn"
+            (click)="openModal()"
+        >
+            <i class="material-icons left">add</i>
+            Add position
+        </a>
+    </div>
+    <div 
+        class="collection"
+        *ngIf="positions.length !== 0; else empty"
+    >
+        <a 
+            *ngFor="let position of positions"
+            class="collection-item"
+            (click)="onSelectPosition(position._id)"
+        >
+            {{position.name}}
+        </a>
+    </div>
+    <ng-template #empty>
+        <div class="center">
+            Positions not found!
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
+
+<app-position-modal 
+    [events]="eventsSubject.asObservable()" 
+    [category]="category"
+    (pushPosition)="onVoted($event)"
+    #modal
+></app-position-modal>
